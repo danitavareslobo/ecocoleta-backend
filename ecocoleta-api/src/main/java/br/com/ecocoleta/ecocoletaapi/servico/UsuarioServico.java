@@ -8,4 +8,8 @@ import java.util.List;
 public interface UsuarioServico {
 
 
+    //GET PARA TESTES
+    List<UsuarioRespostaDto> buscarTodos();
+
+    UsuarioRespostaDto criar(UsuarioRequisicaoDto dto);
 }

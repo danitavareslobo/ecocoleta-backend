@@ -22,8 +22,9 @@ public class UsuarioEntidade {
     private String senha;
 
     //Observar mais tarde a questão de enum usuario/coletor
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private UsuarioPerfil perfil;
+    private UsuarioPerfil perfil = UsuarioPerfil.RESIDENCIAL;
 
 
     @Column(length = 8, nullable = false)

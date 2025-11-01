@@ -13,6 +13,7 @@ public record UsuarioRespostaDto (
     String cep,
     String logradouro,
     String cidade,
+    String estado,
     String bairro,
     String numero,
     String complemento,

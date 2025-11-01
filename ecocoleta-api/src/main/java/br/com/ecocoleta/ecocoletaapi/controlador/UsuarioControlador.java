@@ -12,10 +12,19 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("api/usuarios")
 public class UsuarioControlador {
 
     private final UsuarioServico servico;
 
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public UsuarioRespostaDto post(@RequestBody UsuarioRequisicaoDto dto){
+        return servico.criar(dto);
+    }
 
+    @GetMapping
+    public List<UsuarioRespostaDto> get(){
+        return servico.buscarTodos();
+    }
 }
