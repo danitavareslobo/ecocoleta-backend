@@ -13,4 +13,14 @@ public interface SolicitacaoColetaServico {
 
     SolicitacaoColetaRespostaDto alterar(Long id, SolicitacaoColetaRequisicaoDto dto);
 
+    List<SolicitacaoColetaRespostaDto> listSolicitacoesAguardando();
+
+    SolicitacaoColetaRespostaDto coletar(Long id);
+
+    SolicitacaoColetaRespostaDto cancelar(Long id);
+
+    SolicitacaoColetaRespostaDto finalizar(Long id);
+
+    SolicitacaoColetaRespostaDto feedback(Long id, SolicitacaoColetaRequisicaoDto dto);
+
 }

@@ -25,13 +25,40 @@ public class SolicitacaoColetaControlador {
         return servico.criar(dto);
     }
 
-    @GetMapping
-    public List<SolicitacaoColetaRespostaDto> get(){
-        return servico.buscarTodos();
-    }
+//    @GetMapping
+//    public List<SolicitacaoColetaRespostaDto> get(){
+//        return servico.buscarTodos();
+//    }
 
     @PutMapping("{id}")
     public SolicitacaoColetaRespostaDto put(@PathVariable Long id, @RequestBody SolicitacaoColetaRequisicaoDto dto){
         return servico.alterar(id, dto);
     }
+
+    //requisição teste
+    @GetMapping("aguardando")
+    public List<SolicitacaoColetaRespostaDto> get(){
+        return servico.listSolicitacoesAguardando();
+    }
+
+    @PatchMapping("{id}/coletar")
+    public SolicitacaoColetaRespostaDto coletar(@PathVariable Long id){
+        return servico.coletar(id);
+    }
+
+    @PatchMapping("{id}/cancelar")
+    public SolicitacaoColetaRespostaDto cancelar(@PathVariable Long id){
+        return servico.cancelar(id);
+    }
+
+    @PatchMapping("{id}/finalizar")
+    public SolicitacaoColetaRespostaDto finalizar(@PathVariable Long id){
+        return servico.finalizar(id);
+    }
+
+    @PatchMapping("{id}/feedback")
+    public SolicitacaoColetaRespostaDto feedback(@PathVariable Long id, @RequestBody SolicitacaoColetaRequisicaoDto dto){
+        return servico.feedback(id, dto);
+    }
+
 }

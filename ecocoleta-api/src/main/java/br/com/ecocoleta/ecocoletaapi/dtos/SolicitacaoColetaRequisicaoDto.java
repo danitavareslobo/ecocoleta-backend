@@ -10,5 +10,6 @@ public record SolicitacaoColetaRequisicaoDto(
         String observacoes,
         List<ItemColetaRequisicaoDto> itemColeta,
         //residencial ID para teste
-        Long usuarioResidencialId
+        Long usuarioResidencialId,
+        String feedback
 ){}
