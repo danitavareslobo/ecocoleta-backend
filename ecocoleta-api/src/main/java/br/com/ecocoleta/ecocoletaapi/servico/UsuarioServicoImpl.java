@@ -1,12 +1,5 @@
 package br.com.ecocoleta.ecocoletaapi.servico;
 
-
-
-//Criar endpoint para criação novos de Usuarios (Usuário/Cadastro):
-// Cria um novo Usuário com perfil Residencial e
-// associa seu Endereço e coordenadas (POST /api/usuarios).
-
-
 import br.com.ecocoleta.ecocoletaapi.dtos.UsuarioRequisicaoDto;
 import br.com.ecocoleta.ecocoletaapi.dtos.UsuarioRespostaDto;
 import br.com.ecocoleta.ecocoletaapi.entidades.UsuarioEntidade;
@@ -45,6 +38,11 @@ public class UsuarioServicoImpl implements UsuarioServico{
     public UsuarioRespostaDto criar(UsuarioRequisicaoDto dto) {
         UsuarioEntidade entidade = salvarEntidade(new UsuarioEntidade(), dto);
         return UsuarioMapeador.paraDto(entidade);
+    }
+
+    @Override
+    public UsuarioEntidade buscarEntidadePorId(Long id) {
+        return repositorio.findById(id).orElseThrow();
     }
 
     public UsuarioEntidade salvarEntidade(UsuarioEntidade entidade, UsuarioRequisicaoDto dto){
