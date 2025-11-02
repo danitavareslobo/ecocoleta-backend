@@ -39,7 +39,7 @@ Create table item_coleta(
 	id BIGSERIAL PRIMARY KEY,
 	tipo_material VARCHAR(25),
 	quantidade_estimada NUMERIC (10,2) not null,
-	quantidade_validada numeric (10,2) not null,
+	quantidade_validada numeric (10,2),
 	estado VARCHAR(25),
 	solicitacao_coleta_id BIGINT not null,
 		CONSTRAINT fk_itemcoleta_solicitacao
