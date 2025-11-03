@@ -7,16 +7,18 @@ import lombok.Data;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Data
 @Entity
-@Table(name = "usuario")
+@Table(name = "solicitacao_coleta")
 public class SolicitacaoColetaEntidade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private SolicitacaoColetaStatus status = SolicitacaoColetaStatus.AGUARDANDO;
 
@@ -33,9 +35,12 @@ public class SolicitacaoColetaEntidade {
     private String feedback;
 
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "solicitacaoColeta", orphanRemoval = true)
+    private List<ItemColetaEntidade> itemColeta;
+
     //Pesquisar sobre a questão de usuario residencial e coletor
     @ManyToOne
-    @JoinColumn(name = "usuario_residencial_id")
+    @JoinColumn(name = "usuario_residencial_id", nullable = false)
     private UsuarioEntidade usuarioResidencial;
 
     @ManyToOne

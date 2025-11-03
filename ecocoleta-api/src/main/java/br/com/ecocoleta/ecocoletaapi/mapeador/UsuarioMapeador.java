@@ -6,6 +6,10 @@ import br.com.ecocoleta.ecocoletaapi.entidades.UsuarioEntidade;
 import br.com.ecocoleta.ecocoletaapi.enums.UsuarioPerfil;
 
 public class UsuarioMapeador {
+
+    private UsuarioMapeador(){};
+
+
     public static UsuarioRespostaDto paraDto(UsuarioEntidade entidade){
         return new UsuarioRespostaDto(
                 entidade.getId(),
