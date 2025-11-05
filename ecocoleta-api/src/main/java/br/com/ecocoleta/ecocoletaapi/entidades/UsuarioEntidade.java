@@ -3,13 +3,18 @@ package br.com.ecocoleta.ecocoletaapi.entidades;
 import br.com.ecocoleta.ecocoletaapi.enums.UsuarioPerfil;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Data
 @Entity
 @Table(name = "usuario")
-public class UsuarioEntidade {
+public class UsuarioEntidade implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +23,7 @@ public class UsuarioEntidade {
     @Column(length = 150, nullable = false)
     private String nomeUsuario;
 
-    @Column(length = 60, nullable = false)
+    @Column(length = 100, nullable = false)
     private String senha;
 
     //Observar mais tarde a questão de enum usuario/coletor
@@ -30,7 +35,7 @@ public class UsuarioEntidade {
     @Column(length = 8, nullable = false)
     private String cep;
 
-    @Column(length = 255, nullable = false)
+    @Column( nullable = false)
     private String logradouro;
 
     @Column(length = 2, nullable = false)
@@ -53,4 +58,19 @@ public class UsuarioEntidade {
 
     @Column
     private BigDecimal longitude;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of((GrantedAuthority) ()-> perfil.name());
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return nomeUsuario;
+    }
 }

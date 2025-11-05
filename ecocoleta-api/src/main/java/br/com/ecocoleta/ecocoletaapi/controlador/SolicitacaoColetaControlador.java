@@ -25,10 +25,10 @@ public class SolicitacaoColetaControlador {
         return servico.criar(dto);
     }
 
-//    @GetMapping
-//    public List<SolicitacaoColetaRespostaDto> get(){
-//        return servico.buscarTodos();
-//    }
+    @GetMapping("minhas")
+    public List<SolicitacaoColetaRespostaDto> getResidencial(){
+        return servico.buscarTodos();
+    }
 
     @PutMapping("{id}")
     public SolicitacaoColetaRespostaDto put(@PathVariable Long id, @RequestBody SolicitacaoColetaRequisicaoDto dto){
@@ -37,7 +37,7 @@ public class SolicitacaoColetaControlador {
 
     //requisição teste
     @GetMapping("aguardando")
-    public List<SolicitacaoColetaRespostaDto> get(){
+    public List<SolicitacaoColetaRespostaDto> getColetor(){
         return servico.listSolicitacoesAguardando();
     }
 

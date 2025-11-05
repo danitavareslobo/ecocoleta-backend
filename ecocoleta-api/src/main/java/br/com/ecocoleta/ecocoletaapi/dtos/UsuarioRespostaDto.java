@@ -8,7 +8,6 @@ public record UsuarioRespostaDto (
 
         Long id,
         String nomeUsuario,
-        String senha,
         UsuarioPerfil perfil,
         String cep,
         String logradouro,

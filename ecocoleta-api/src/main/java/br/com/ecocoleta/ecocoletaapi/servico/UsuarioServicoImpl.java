@@ -6,6 +6,9 @@ import br.com.ecocoleta.ecocoletaapi.entidades.UsuarioEntidade;
 import br.com.ecocoleta.ecocoletaapi.mapeador.UsuarioMapeador;
 import br.com.ecocoleta.ecocoletaapi.repositorio.UsuarioRepositorio;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,26 +20,13 @@ import java.util.List;
 public class UsuarioServicoImpl implements UsuarioServico{
 
     private final UsuarioRepositorio repositorio;
+    private final PasswordEncoder passwordEncoder;
 
-
-
-    //GET PARA TESTES
-    @Override
-    public List<UsuarioRespostaDto> buscarTodos(){
-        List<UsuarioEntidade> listaEntidades = repositorio.findAll();
-        List<UsuarioRespostaDto> listaResposta = new ArrayList<>();
-
-        for(UsuarioEntidade entidade : listaEntidades){
-            UsuarioRespostaDto respostaDto = UsuarioMapeador.paraDto(entidade);
-            listaResposta.add(respostaDto);
-        }
-
-        return listaResposta;
-    }
 
     @Override
     public UsuarioRespostaDto criar(UsuarioRequisicaoDto dto) {
         UsuarioEntidade entidade = salvarEntidade(new UsuarioEntidade(), dto);
+
         return UsuarioMapeador.paraDto(entidade);
     }
 
@@ -47,8 +37,13 @@ public class UsuarioServicoImpl implements UsuarioServico{
 
     public UsuarioEntidade salvarEntidade(UsuarioEntidade entidade, UsuarioRequisicaoDto dto){
         UsuarioMapeador.paraEntidade(entidade, dto);
+        entidade.setSenha(passwordEncoder.encode(dto.senha()));
         return repositorio.save(entidade);
     }
 
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return repositorio.findByNomeUsuario(username).orElseThrow();
+    }
 }
