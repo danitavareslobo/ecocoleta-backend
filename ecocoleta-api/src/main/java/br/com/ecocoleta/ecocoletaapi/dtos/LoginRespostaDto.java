@@ -13,5 +13,4 @@ public class LoginRespostaDto{
     private String tipo;
     private String token;
 
-
 }

@@ -1,6 +1,5 @@
 package br.com.ecocoleta.ecocoletaapi.dtos;
 
-import br.com.ecocoleta.ecocoletaapi.enums.ItemColetaTipoMaterial;
 
 import java.time.LocalDate;
 import java.util.List;
