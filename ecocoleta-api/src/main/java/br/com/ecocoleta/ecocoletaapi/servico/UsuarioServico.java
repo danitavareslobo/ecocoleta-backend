@@ -3,14 +3,11 @@ package br.com.ecocoleta.ecocoletaapi.servico;
 import br.com.ecocoleta.ecocoletaapi.dtos.UsuarioRequisicaoDto;
 import br.com.ecocoleta.ecocoletaapi.dtos.UsuarioRespostaDto;
 import br.com.ecocoleta.ecocoletaapi.entidades.UsuarioEntidade;
-
-import java.util.List;
-
-public interface UsuarioServico {
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 
-    //GET PARA TESTES
-    List<UsuarioRespostaDto> buscarTodos();
+public interface UsuarioServico extends UserDetailsService {
+
 
     UsuarioRespostaDto criar(UsuarioRequisicaoDto dto);
 

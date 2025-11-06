@@ -2,7 +2,7 @@ Create table if not exists usuario(
 	--identificação e acesso--
 	id BIGSERIAL PRIMARY KEY,
 	nome_usuario varchar(150) not null unique,
-	senha varchar(60) not null,
+	senha varchar(100) not null,
 	perfil VARCHAR(25),
 
 	--endereço--

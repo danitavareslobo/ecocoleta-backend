@@ -34,7 +34,6 @@ public class SolicitacaoColetaEntidade {
     @Column(length = 100)
     private String feedback;
 
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "solicitacaoColeta", orphanRemoval = true)
     private List<ItemColetaEntidade> itemColeta;
 

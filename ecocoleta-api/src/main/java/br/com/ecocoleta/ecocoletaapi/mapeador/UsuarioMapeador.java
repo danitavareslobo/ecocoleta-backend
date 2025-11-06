@@ -3,7 +3,6 @@ package br.com.ecocoleta.ecocoletaapi.mapeador;
 import br.com.ecocoleta.ecocoletaapi.dtos.UsuarioRequisicaoDto;
 import br.com.ecocoleta.ecocoletaapi.dtos.UsuarioRespostaDto;
 import br.com.ecocoleta.ecocoletaapi.entidades.UsuarioEntidade;
-import br.com.ecocoleta.ecocoletaapi.enums.UsuarioPerfil;
 
 public class UsuarioMapeador {
 
@@ -14,7 +13,6 @@ public class UsuarioMapeador {
         return new UsuarioRespostaDto(
                 entidade.getId(),
                 entidade.getNomeUsuario(),
-                entidade.getSenha(),
                 entidade.getPerfil(),
                 entidade.getCep(),
                 entidade.getLogradouro(),
@@ -30,7 +28,6 @@ public class UsuarioMapeador {
 
     public static void paraEntidade(UsuarioEntidade entidade, UsuarioRequisicaoDto dto){
         entidade.setNomeUsuario(dto.nomeUsuario());
-        entidade.setSenha(dto.senha());
         entidade.setCep(dto.cep());
         entidade.setLogradouro(dto.logradouro());
         entidade.setCidade(dto.cidade());

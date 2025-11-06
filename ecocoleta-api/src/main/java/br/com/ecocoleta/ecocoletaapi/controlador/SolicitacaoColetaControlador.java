@@ -2,10 +2,8 @@ package br.com.ecocoleta.ecocoletaapi.controlador;
 
 
 import br.com.ecocoleta.ecocoletaapi.dtos.SolicitacaoColetaRequisicaoDto;
-import br.com.ecocoleta.ecocoletaapi.dtos.UsuarioRequisicaoDto;
 import br.com.ecocoleta.ecocoletaapi.dtos.SolicitacaoColetaRespostaDto;
 import br.com.ecocoleta.ecocoletaapi.servico.SolicitacaoColetaServico;
-import br.com.ecocoleta.ecocoletaapi.servico.UsuarioServico;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -25,10 +23,10 @@ public class SolicitacaoColetaControlador {
         return servico.criar(dto);
     }
 
-//    @GetMapping
-//    public List<SolicitacaoColetaRespostaDto> get(){
-//        return servico.buscarTodos();
-//    }
+    @GetMapping("minhas")
+    public List<SolicitacaoColetaRespostaDto> getResidencial(){
+        return servico.buscarTodos();
+    }
 
     @PutMapping("{id}")
     public SolicitacaoColetaRespostaDto put(@PathVariable Long id, @RequestBody SolicitacaoColetaRequisicaoDto dto){
@@ -37,7 +35,7 @@ public class SolicitacaoColetaControlador {
 
     //requisição teste
     @GetMapping("aguardando")
-    public List<SolicitacaoColetaRespostaDto> get(){
+    public List<SolicitacaoColetaRespostaDto> getColetor(){
         return servico.listSolicitacoesAguardando();
     }
 

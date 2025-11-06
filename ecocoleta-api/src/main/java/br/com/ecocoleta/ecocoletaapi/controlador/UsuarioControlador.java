@@ -23,8 +23,4 @@ public class UsuarioControlador {
         return servico.criar(dto);
     }
 
-    @GetMapping
-    public List<UsuarioRespostaDto> get(){
-        return servico.buscarTodos();
-    }
 }
