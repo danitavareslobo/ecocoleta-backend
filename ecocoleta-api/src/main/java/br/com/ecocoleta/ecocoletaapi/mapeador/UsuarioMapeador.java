@@ -4,6 +4,8 @@ import br.com.ecocoleta.ecocoletaapi.dtos.UsuarioRequisicaoDto;
 import br.com.ecocoleta.ecocoletaapi.dtos.UsuarioRespostaDto;
 import br.com.ecocoleta.ecocoletaapi.entidades.UsuarioEntidade;
 
+import java.math.BigDecimal;
+
 public class UsuarioMapeador {
 
     private UsuarioMapeador(){};
@@ -35,6 +37,8 @@ public class UsuarioMapeador {
         entidade.setBairro(dto.bairro());
         entidade.setNumero(dto.numero());
         entidade.setComplemento(dto.complemento());
+        entidade.setLatitude(dto.latitude() != null ? BigDecimal.valueOf(dto.latitude()) : null);
+        entidade.setLongitude(dto.longitude() != null ? BigDecimal.valueOf(dto.longitude()) : null);
     }
 
 
