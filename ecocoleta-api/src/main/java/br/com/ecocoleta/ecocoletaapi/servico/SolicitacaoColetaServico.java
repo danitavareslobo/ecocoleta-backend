@@ -11,6 +11,8 @@ public interface SolicitacaoColetaServico {
 
     List<SolicitacaoColetaRespostaDto> buscarTodos();
 
+    List<SolicitacaoColetaRespostaDto> buscarPorUsuarioResidencial(Long usuarioId);
+
     SolicitacaoColetaRespostaDto alterar(Long id, SolicitacaoColetaRequisicaoDto dto);
 
     List<SolicitacaoColetaRespostaDto> listSolicitacoesAguardando();

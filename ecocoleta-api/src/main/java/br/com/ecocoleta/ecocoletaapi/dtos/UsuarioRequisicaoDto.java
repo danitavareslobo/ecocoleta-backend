@@ -11,5 +11,7 @@ public record UsuarioRequisicaoDto (
     String cidade,
     String bairro,
     String numero,
-    String complemento
+    String complemento,
+    Double latitude,
+    Double longitude
 ){}
