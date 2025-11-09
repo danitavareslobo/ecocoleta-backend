@@ -32,6 +32,39 @@ public class UsuarioServicoImpl implements UsuarioServico{
         return repositorio.findById(id).orElseThrow();
     }
 
+    @Override
+    public UsuarioRespostaDto buscarPorId(Long id) {
+        UsuarioEntidade entidade = buscarEntidadePorId(id);
+        return UsuarioMapeador.paraDto(entidade);
+    }
+
+    @Override
+    public UsuarioRespostaDto atualizar(Long id, UsuarioRequisicaoDto dto) {
+        UsuarioEntidade entidade = buscarEntidadePorId(id);
+
+        entidade.setCep(dto.cep());
+        entidade.setLogradouro(dto.logradouro());
+        entidade.setEstado(dto.estado());
+        entidade.setCidade(dto.cidade());
+        entidade.setBairro(dto.bairro());
+        entidade.setNumero(dto.numero());
+        entidade.setComplemento(dto.complemento());
+
+        if (dto.latitude() != null) {
+            entidade.setLatitude(java.math.BigDecimal.valueOf(dto.latitude()));
+        }
+        if (dto.longitude() != null) {
+            entidade.setLongitude(java.math.BigDecimal.valueOf(dto.longitude()));
+        }
+
+        if (dto.senha() != null && !dto.senha().isEmpty()) {
+            entidade.setSenha(passwordEncoder.encode(dto.senha()));
+        }
+
+        repositorio.save(entidade);
+        return UsuarioMapeador.paraDto(entidade);
+    }
+
     public UsuarioEntidade salvarEntidade(UsuarioEntidade entidade, UsuarioRequisicaoDto dto){
         UsuarioMapeador.paraEntidade(entidade, dto);
         entidade.setSenha(passwordEncoder.encode(dto.senha()));

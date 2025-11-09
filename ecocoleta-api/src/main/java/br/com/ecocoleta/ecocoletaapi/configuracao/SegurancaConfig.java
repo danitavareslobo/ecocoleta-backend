@@ -36,7 +36,8 @@ public class SegurancaConfig {
                 .sessionManagement((s) -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         //criar login e logout ainda
-                        .requestMatchers("/api/login", "/api/logout", "/api/usuarios" ).permitAll()
+                        .requestMatchers("/api/login", "/api/logout").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/coletas").hasAuthority(UsuarioPerfil.RESIDENCIAL.name())
                         .requestMatchers(HttpMethod.GET, "/api/coletas/minhas").hasAuthority(UsuarioPerfil.RESIDENCIAL.name())
                         .requestMatchers(HttpMethod.PUT, "/api/coletas/{id}").hasAuthority(UsuarioPerfil.RESIDENCIAL.name())
@@ -45,6 +46,8 @@ public class SegurancaConfig {
                         .requestMatchers(HttpMethod.PATCH, "/api/coletas/{id}/coletar").hasAuthority(UsuarioPerfil.COLETOR.name())
                         .requestMatchers(HttpMethod.PATCH, "/api/coletas/{id}/feedback").hasAuthority(UsuarioPerfil.COLETOR.name())
                         .requestMatchers(HttpMethod.PATCH, "/api/coletas/{id}/finalizar").hasAuthority(UsuarioPerfil.COLETOR.name())
+                        .requestMatchers(HttpMethod.GET, "/api/usuarios/perfil").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/usuarios/perfil").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFiltro, UsernamePasswordAuthenticationFilter.class);
@@ -74,27 +77,6 @@ public class SegurancaConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-
-
-//    //em memoria para teste, sem uso
-//    @Bean
-//    public UserDetailsService userDetailsService(PasswordEncoder encoder) {
-//        String password = encoder.encode("123");
-//
-//        UserDetails usuario = User.withUsername("user")
-//                .password(password)
-//                .roles(UsuarioPerfil.RESIDENCIAL.name())
-//                .build();
-//
-//        UserDetails admin = User.withUsername("adm")
-//                .password(password)
-//                .roles(UsuarioPerfil.COLETOR.name())
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(usuario, admin);
-//    }
-
-
 
 
 }
