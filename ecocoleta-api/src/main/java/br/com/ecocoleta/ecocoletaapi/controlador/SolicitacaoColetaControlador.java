@@ -38,10 +38,10 @@ public class SolicitacaoColetaControlador {
         return servico.alterar(id, dto);
     }
 
-    //requisição teste
-    @GetMapping("aguardando")
+    //Endpoint para coletores - retorna TODAS as solicitações
+    @GetMapping
     public List<SolicitacaoColetaRespostaDto> getColetor(){
-        return servico.listSolicitacoesAguardando();
+        return servico.buscarTodos();
     }
 
     @PatchMapping("{id}/coletar")
