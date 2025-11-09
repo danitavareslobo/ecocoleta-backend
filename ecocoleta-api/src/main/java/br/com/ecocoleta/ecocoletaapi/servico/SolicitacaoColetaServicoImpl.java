@@ -51,6 +51,16 @@ public class SolicitacaoColetaServicoImpl implements SolicitacaoColetaServico {
     }
 
     @Override
+    public List<SolicitacaoColetaRespostaDto> buscarPorUsuarioResidencial(Long usuarioId) {
+        UsuarioEntidade usuario = servico.buscarEntidadePorId(usuarioId);
+        List<SolicitacaoColetaEntidade> listaEntidades = repositorio.findAllByUsuarioResidencial(usuario);
+
+        return listaEntidades.stream()
+                .map(SolicitacaoColetaMapeador::paraDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public SolicitacaoColetaRespostaDto alterar(Long id, SolicitacaoColetaRequisicaoDto dto) {
 
         SolicitacaoColetaEntidade entidade = buscarEntidadePorId(id);
