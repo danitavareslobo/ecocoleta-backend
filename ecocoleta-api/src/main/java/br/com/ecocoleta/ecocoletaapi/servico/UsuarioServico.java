@@ -12,4 +12,8 @@ public interface UsuarioServico extends UserDetailsService {
     UsuarioRespostaDto criar(UsuarioRequisicaoDto dto);
 
     UsuarioEntidade buscarEntidadePorId(Long id);
+
+    UsuarioRespostaDto buscarPorId(Long id);
+
+    UsuarioRespostaDto atualizar(Long id, UsuarioRequisicaoDto dto);
 }
