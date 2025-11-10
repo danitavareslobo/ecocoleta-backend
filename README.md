@@ -55,13 +55,15 @@ CREATE DATABASE ecocoleta;
 CREATE USER ecocoleta_user WITH PASSWORD 'ecocoleta123';
 GRANT ALL PRIVILEGES ON DATABASE ecocoleta TO ecocoleta_user;
 ```
+
 ### 3 - Configuração da Aplicação (application.properties)
 
+```propeties
 spring.datasource.url=jdbc:postgresql://localhost:5432/ecocoleta
 spring.datasource.username=ecocoleta_user
 spring.datasource.password=ecocoleta123
 spring.jpa.hibernate.ddl-auto=update
-
+```
 ###EcoColeta - Em busca de um sistema mais sustentavel.
   
 
