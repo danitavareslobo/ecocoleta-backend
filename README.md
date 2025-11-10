@@ -36,9 +36,9 @@ A segurança foi implementada para garantir acessos de endpoints especificos do 
 * **Controle de Perfil:** Sistema retringe acessos especificos para cada tipo de Perfil(`COLETOR`/`RESIDENCIAL`).
 * **Usuarios iniciais:** Três (3) contas de **COLETOR** são criadas automaticamente para testes de gerenciamento das coletas:
     USUARIOS  /  SENHA
-  *`coletor1` / `coletor1`
-  *`coletor2` / `coletor2`
-  *`coletor3` / `coletor3`
+  *  `coletor1` / `coletor1`
+  *  `coletor2` / `coletor2`
+  *  `coletor3` / `coletor3`
 
 ## Configuração e Execução
 
