@@ -37,6 +37,7 @@ public class SegurancaConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         //criar login e logout ainda
                         .requestMatchers("/api/login", "/api/logout").permitAll()
+                        .requestMatchers("/health").permitAll() // Health check para monitoramento
                         .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/coletas").hasAuthority(UsuarioPerfil.RESIDENCIAL.name())
                         .requestMatchers(HttpMethod.GET, "/api/coletas/minhas").hasAuthority(UsuarioPerfil.RESIDENCIAL.name())
@@ -68,10 +69,14 @@ public class SegurancaConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
+        configuration.setAllowedOrigins(Arrays.asList(
+            "http://localhost:5173",                        // Desenvolvimento local
+            "https://ecocoleta-frontend.netlify.app"        // Produção Netlify
+        ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
+        configuration.setMaxAge(3600L); // Cache preflight por 1 hora
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
