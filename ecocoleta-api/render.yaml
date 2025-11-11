@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: ecocoleta-api
+    env: java
+    rootDirectory: ecocoleta-api
+    buildCommand: ./mvnw clean install -DskipTests
+    startCommand: java -jar target/ecocoleta.jar
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+
+databases:
+  - name: ecocoleta-db
+    plan: free
