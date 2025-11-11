@@ -1,35 +1,9 @@
---criação enum=--
-Create type Perfil_Enum AS ENUM(
-	'RESIDENCIAL',
-	'COLETOR'
-);
-
-Create type Status_Enum AS ENUM(
-	'AGUARDANDO',
-	'COLETADA',
-	'FINALIZADA',
-	'CANCELADA'
-);
-
-Create type Tipo_Enum AS ENUM(
-	'PLASTICO',
-	'VIDRO', 
-	'PAPEL', 
-	'METAL'
-);
-
-Create type Estado_Enum AS ENUM(
-	'RUIM', 
-	'BOM', 
-	'OTIMO'
-);
-
 Create table if not exists usuario(
 	--identificação e acesso--
 	id BIGSERIAL PRIMARY KEY,
 	nome_usuario varchar(150) not null unique,
-	senha varchar(60) not null,
-	perfil Perfil_Enum not null,
+	senha varchar(100) not null,
+	perfil VARCHAR(25),
 
 	--endereço--
 	cep varchar (8) not null,
@@ -46,7 +20,7 @@ Create table if not exists usuario(
 
 Create table if not exists solicitacao_coleta(
 	id BIGSERIAL PRIMARY KEY,
-	status Status_Enum not null default 'AGUARDANDO',
+	status VARCHAR(25),
 	data_solicitacao TIMESTAMP WITH TIME ZONE not null,
 	data_agenda date not null,
 	observacoes varchar(100),
@@ -63,12 +37,14 @@ Create table if not exists solicitacao_coleta(
 
 Create table item_coleta(
 	id BIGSERIAL PRIMARY KEY,
-	tipo_material Tipo_Enum not null,
+	tipo_material VARCHAR(25),
 	quantidade_estimada NUMERIC (10,2) not null,
-	quantidade_validada numeric (10,2) not null,
-	estado Estado_Enum not null,
+	quantidade_validada numeric (10,2),
+	estado VARCHAR(25),
 	solicitacao_coleta_id BIGINT not null,
 		CONSTRAINT fk_itemcoleta_solicitacao
 		FOREIGN KEY (solicitacao_coleta_id)
 		REFERENCES solicitacao_coleta(id)
 );
+
+

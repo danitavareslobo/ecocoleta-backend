@@ -64,7 +64,22 @@ spring.datasource.username=ecocoleta_user
 spring.datasource.password=ecocoleta123
 spring.jpa.hibernate.ddl-auto=update
 ```
-###  EcoColeta - Em busca de um sistema mais sustentavel.
+
+
+## Deploy
+
+**API em produção:** https://ecocoleta-api.onrender.com
+
+
+## 👥 Autores
+
+- **Carlos Henrique Motta** - [@CHMotta](https://github.com/CHMotta)
+- **Daniele Tavares Lobo** - [@danitavareslobo](https://github.com/danitavareslobo)
+- **Osiel Fernandes** - [@osi-83](https://github.com/osi-83)
+
+
+⭐ Se este projeto te ajudou, considere dar uma estrela!
+###  🌱 EcoColeta - Em busca de um sistema mais sustentavel.
   
 
 
