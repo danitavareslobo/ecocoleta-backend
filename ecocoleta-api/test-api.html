@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoColeta API - Teste</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-health { background: #10b981; }
+        .btn-login { background: #3b82f6; }
+        .btn-usuarios { background: #8b5cf6; }
+        .btn-solicitacoes { background: #f59e0b; }
+
+        .response {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+        }
+
+        .response h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        pre {
+            background: #1f2937;
+            color: #10b981;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .status-success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .info-box {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        .info-box h4 {
+            color: #1e40af;
+            margin-bottom: 8px;
+        }
+
+        .info-box p {
+            color: #1e3a8a;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌱 EcoColeta API</h1>
+        <p class="subtitle">Teste de Endpoints</p>
+
+        <div class="info-box">
+            <h4>Usuários de Teste (COLETOR)</h4>
+            <p>
+                <strong>coletor1</strong> / senha: coletor1<br>
+                <strong>coletor2</strong> / senha: coletor2<br>
+                <strong>coletor3</strong> / senha: coletor3
+            </p>
+        </div>
+
+        <div class="input-group">
+            <label for="apiUrl">URL da API:</label>
+            <input type="text" id="apiUrl" value="http://localhost:8080" placeholder="https://ecocoleta-api.onrender.com">
+        </div>
+
+        <div class="button-group">
+            <button class="btn-health" onclick="testHealth()">Health Check</button>
+            <button class="btn-login" onclick="testLogin()">Login (coletor1)</button>
+            <button class="btn-usuarios" onclick="testUsuarios()">Listar Usuários</button>
+            <button class="btn-solicitacoes" onclick="testSolicitacoes()">Listar Solicitações</button>
+        </div>
+
+        <div class="input-group">
+            <label for="customEndpoint">Endpoint Customizado:</label>
+            <input type="text" id="customEndpoint" placeholder="/api/endpoint">
+        </div>
+
+        <div class="input-group">
+            <label for="customMethod">Método HTTP:</label>
+            <select id="customMethod">
+                <option value="GET">GET</option>
+                <option value="POST">POST</option>
+                <option value="PUT">PUT</option>
+                <option value="DELETE">DELETE</option>
+            </select>
+        </div>
+
+        <button class="btn-health" onclick="testCustomEndpoint()" style="width: 100%; margin-bottom: 20px;">
+            Testar Endpoint Customizado
+        </button>
+
+        <div id="response" class="response" style="display: none;">
+            <h3>Resposta:</h3>
+            <div id="responseContent"></div>
+        </div>
+    </div>
+
+    <script>
+        let token = '';
+
+        function getApiUrl() {
+            return document.getElementById('apiUrl').value.trim();
+        }
+
+        function showResponse(status, data, statusCode) {
+            const responseDiv = document.getElementById('response');
+            const responseContent = document.getElementById('responseContent');
+
+            const statusClass = statusCode >= 200 && statusCode < 300 ? 'status-success' : 'status-error';
+            const statusText = statusCode >= 200 && statusCode < 300 ? 'SUCESSO' : 'ERRO';
+
+            responseContent.innerHTML = `
+                <span class="status ${statusClass}">${statusText} - Status: ${statusCode}</span>
+                <pre>${JSON.stringify(data, null, 2)}</pre>
+            `;
+
+            responseDiv.style.display = 'block';
+        }
+
+        async function testHealth() {
+            try {
+                const response = await fetch(`${getApiUrl()}/health`);
+                const data = await response.json();
+                showResponse('success', data, response.status);
+            } catch (error) {
+                showResponse('error', { error: error.message }, 500);
+            }
+        }
+
+        async function testLogin() {
+            try {
+                const response = await fetch(`${getApiUrl()}/api/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        usuario: 'coletor1',
+                        senha: 'coletor1'
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.token) {
+                    token = data.token;
+                    showResponse('success', { ...data, message: 'Token salvo com sucesso!' }, response.status);
+                } else {
+                    showResponse('error', data, response.status);
+                }
+            } catch (error) {
+                showResponse('error', { error: error.message }, 500);
+            }
+        }
+
+        async function testUsuarios() {
+            if (!token) {
+                alert('Faça login primeiro para obter o token!');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${getApiUrl()}/api/usuarios`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                const data = await response.json();
+                showResponse('success', data, response.status);
+            } catch (error) {
+                showResponse('error', { error: error.message }, 500);
+            }
+        }
+
+        async function testSolicitacoes() {
+            if (!token) {
+                alert('Faça login primeiro para obter o token!');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${getApiUrl()}/api/solicitacoes`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                const data = await response.json();
+                showResponse('success', data, response.status);
+            } catch (error) {
+                showResponse('error', { error: error.message }, 500);
+            }
+        }
+
+        async function testCustomEndpoint() {
+            const endpoint = document.getElementById('customEndpoint').value.trim();
+            const method = document.getElementById('customMethod').value;
+
+            if (!endpoint) {
+                alert('Digite um endpoint!');
+                return;
+            }
+
+            try {
+                const options = {
+                    method: method,
+                    headers: {}
+                };
+
+                if (token) {
+                    options.headers['Authorization'] = `Bearer ${token}`;
+                }
+
+                const response = await fetch(`${getApiUrl()}${endpoint}`, options);
+                const data = await response.json();
+                showResponse('success', data, response.status);
+            } catch (error) {
+                showResponse('error', { error: error.message }, 500);
+            }
+        }
+    </script>
+</body>
+</html>
