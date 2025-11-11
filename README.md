@@ -66,9 +66,37 @@ spring.jpa.hibernate.ddl-auto=update
 ```
 
 
-## Deploy
+## 🚀 Deploy e Infraestrutura
 
+### Produção
 **API em produção:** https://ecocoleta-api.onrender.com
+
+### 🗄️ Banco de Dados
+- **Plataforma:** Render PostgreSQL
+- **Nome:** ecocoleta-db
+- **Versão:** PostgreSQL 17
+- **Região:** Ohio (US East)
+- **Plano:** Free Tier
+
+### 🔧 Backend (API)
+- **Plataforma:** Render Web Service
+- **Runtime:** Java 21 (JRE Alpine)
+- **Framework:** Spring Boot 3.5.7
+- **Build:** Docker com multi-stage build
+- **Deploy:** Automático via GitHub
+- **Health Check:** https://ecocoleta-api.onrender.com/health
+
+### ⏱️ Monitoramento
+- **Ferramenta:** UptimeRobot
+- **Intervalo:** Ping a cada 5 minutos
+- **Protocolo:** HTTPS
+- **Endpoint:** https://ecocoleta-api.onrender.com/health
+- **Objetivo:** Manter o backend ativo e evitar cold starts (limitação do plano gratuito do Render)
+
+### 🌐 Frontend
+- **URL:** https://ecocoleta-frontend.netlify.app
+- **Plataforma:** Netlify
+- **Framework:** React + Vite
 
 
 ## 👥 Autores
